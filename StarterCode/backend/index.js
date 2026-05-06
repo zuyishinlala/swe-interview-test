@@ -39,11 +39,12 @@ const fetchImageUrl = () => {
 
 //implement the get api for getting products
 app.get('/api/products', (req, res) => {
-    const productsWithImages = products.map((product) => ({
-        ...product,
-        imageUrl: fetchImageUrl(),
-    }));
-    res.json(productsWithImages);
+    for (const product of products) {
+        if (!product.imageUrl) {
+            product.imageUrl = fetchImageUrl();
+        }
+    }
+    res.json(products.map((p) => ({ ...p })));
 });
 
 //implement the delete api for deleting a product by Id
