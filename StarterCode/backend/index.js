@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.use(express.json());
 
@@ -14,6 +14,13 @@ app.use(
         allowedHeaders: ['Content-Type'],
     })
 );
+
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Backend is running',
+        products: '/api/products',
+    });
+});
 
 //products array
 let products = [
