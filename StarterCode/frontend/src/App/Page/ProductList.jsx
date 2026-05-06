@@ -16,8 +16,18 @@ const ProductList = () => {
     setProducts(data);
   };
 
+  //implement the delete function
+  const handleDelete = async (id) => {
+    const res = await fetch(`/api/products/${id}`, { method: 'DELETE' });
+    if (!res.ok) {
+      return;
+    }
+    await fetchProducts();
+  };
+
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -31,6 +41,7 @@ const ProductList = () => {
             name={p.name}
             price={p.price}
             description={p.description}
+            onDelete={() => handleDelete(p.id)}
           />
         ))}
       </div>
